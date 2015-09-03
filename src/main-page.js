@@ -1,47 +1,59 @@
 import observableModule from 'data/observable'
 import observableArray from 'data/observable-array'
-
-// import observable from 'data/observable'
-// import observableArray from 'data/observable-array'
-//
-// import EntryViewModel from './entry-view-model.js'
+import appModule from 'application'
 
 var pageData = new observableModule.Observable()
 var entries = new observableArray.ObservableArray([])
 var page
 
-function timeFormatter(date) {
-  return `${date.getHours()}:${date.getMinutes()}`
+function timeFormatter(value) {
+  return `${value.getHours()}:${value.getMinutes()}`
 }
 
 function boolFormatter(value, trueText) {
-  return value ? trueText : ''
+  return value? trueText : ''
 }
 
 function feedingMethodFormatter(value) {
-  return value? 'Груди' : 'Пляшечка'
+  switch (value) {
+    case 0:
+      return 'Груди(ліві)'
+    case 1:
+      return 'Груди(праві)'
+    case 2:
+      return 'Пляшечка'
+  }
+}
+
+function feedingAmountFormatter(value, method) {
+  return method === 0 || method === 1? `${value}хв` : `${value}мг`
 }
 
 class EntryViewModel {
-  constructor() {
+  constructor({poo = false,
+               pee = false,
+               feedingMethod = 0,
+               feedingAmount = 0} = {}) {
     this.startTime = new Date()
-    this.formattedStartTime = timeFormatter(this.startTime)
-    this.poo = false
-    this.pee = false
-    this.feedingMethod = 0
-    this.feedingAmount = 0
+    this.poo = poo
+    this.pee = pee
+    this.feedingMethod = feedingMethod
+    this.feedingAmount = feedingAmount
   }
 }
 
 export function onPageLoaded(args) {
   page = args.object
-  entries.push(new EntryViewModel())
-  entries.push(new EntryViewModel())
-  entries.push(new EntryViewModel())
+  entries.push(new EntryViewModel({ poo: true, pee: true, feedingMethod: 0, feedingAmount: 10 }))
+  entries.push(new EntryViewModel({ poo: true, pee: true, feedingMethod: 1, feedingAmount: 5 }))
+  entries.push(new EntryViewModel({ poo: true, pee: true, feedingMethod: 2, feedingAmount: 60 }))
+
+  appModule.resources['timeFormatter'] = timeFormatter
+  appModule.resources['boolFormatter'] = boolFormatter
+  appModule.resources['feedingMethodFormatter'] = feedingMethodFormatter
+  appModule.resources['feedingAmountFormatter'] = feedingAmountFormatter
 
   pageData.set('entries', entries)
-  pageData.set('timeFormatter', timeFormatter)
-  pageData.set('boolFormatter', boolFormatter)
 
   page.bindingContext = pageData
 }

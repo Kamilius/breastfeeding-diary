@@ -18,37 +18,70 @@ var _dataObservableArray = require('data/observable-array');
 
 var _dataObservableArray2 = _interopRequireDefault(_dataObservableArray);
 
-// import observable from 'data/observable'
-// import observableArray from 'data/observable-array'
-//
-// import EntryViewModel from './entry-view-model.js'
+var _application = require('application');
+
+var _application2 = _interopRequireDefault(_application);
 
 var pageData = new _dataObservable2['default'].Observable();
 var entries = new _dataObservableArray2['default'].ObservableArray([]);
 var page;
 
-function timeFormatter(date) {
-  return date.getHours() + ':' + date.getMinutes();
+function timeFormatter(value) {
+  return value.getHours() + ':' + value.getMinutes();
+}
+
+function boolFormatter(value, trueText) {
+  return value ? trueText : '';
+}
+
+function feedingMethodFormatter(value) {
+  switch (value) {
+    case 0:
+      return 'Груди(ліві)';
+    case 1:
+      return 'Груди(праві)';
+    case 2:
+      return 'Пляшечка';
+  }
+}
+
+function feedingAmountFormatter(value, method) {
+  return method === 0 || method === 1 ? value + 'хв' : value + 'мг';
 }
 
 var EntryViewModel = function EntryViewModel() {
+  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+  var _ref$poo = _ref.poo;
+  var poo = _ref$poo === undefined ? false : _ref$poo;
+  var _ref$pee = _ref.pee;
+  var pee = _ref$pee === undefined ? false : _ref$pee;
+  var _ref$feedingMethod = _ref.feedingMethod;
+  var feedingMethod = _ref$feedingMethod === undefined ? 0 : _ref$feedingMethod;
+  var _ref$feedingAmount = _ref.feedingAmount;
+  var feedingAmount = _ref$feedingAmount === undefined ? 0 : _ref$feedingAmount;
+
   _classCallCheck(this, EntryViewModel);
 
   this.startTime = new Date();
-  this.formattedStartTime = timeFormatter(this.startTime);
-  this.poo = false;
-  this.pee = false;
-  this.feedingMethod = 0;
-  this.feedingAmount = 0;
+  this.poo = poo;
+  this.pee = pee;
+  this.feedingMethod = feedingMethod;
+  this.feedingAmount = feedingAmount;
 };
 
 function onPageLoaded(args) {
   page = args.object;
-  entries.push(new EntryViewModel());
-  entries.push(new EntryViewModel());
-  entries.push(new EntryViewModel());
+  entries.push(new EntryViewModel({ poo: true, pee: true, feedingMethod: 0, feedingAmount: 10 }));
+  entries.push(new EntryViewModel({ poo: true, pee: true, feedingMethod: 1, feedingAmount: 5 }));
+  entries.push(new EntryViewModel({ poo: true, pee: true, feedingMethod: 2, feedingAmount: 60 }));
+
+  _application2['default'].resources['timeFormatter'] = timeFormatter;
+  _application2['default'].resources['boolFormatter'] = boolFormatter;
+  _application2['default'].resources['feedingMethodFormatter'] = feedingMethodFormatter;
+  _application2['default'].resources['feedingAmountFormatter'] = feedingAmountFormatter;
+
   pageData.set('entries', entries);
-  pageData.set('timeFormatter', timeFormatter);
 
   page.bindingContext = pageData;
 }
