@@ -1,0 +1,30 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" loaded="onPageLoaded">
+  <GridLayout rows="auto, *">
+    <StackLayout>
+      <Button text="Додати" tap="addFeeding"></Button>
+    </StackLayout>
+    <ListView items="{{ entries }}" row="1" cssClass="entry-list">
+      <ListView.itemTemplate cssClass="entry-list__item">
+        <StackLayout orientation="horizontal">
+          <Label cssClass="entry-list__item__col entry-list__item__col--start-time"
+                 text="{{ formattedStartTime }}"></Label>
+          <Label cssClass="entry-list__item__col entry-list__item__col--pee"
+                 text="{{ pee, pee | boolFormatter('попісяв') }}"></Label>
+          <Label cssClass="entry-list__item__col entry-list__item__col--poo"
+                 text="{{ poo, poo | boolFormatter('покакав') }}"></Label>
+          <Label cssClass="entry-list__item__col entry-list__item__col--method"
+                 text="{{ feedingMethod, feedingMethod | feedingMethodFormatter() }}"></Label>
+          <Label cssClass="entry-list__item__col entry-list__item__col--amount"
+                 text="{{ feedingAmount, feedingAmount | feedingAmountFormatter(feedingMethod) }}"></Label>
+        </StackLayout>
+      </ListView.itemTemplate>
+    </ListView>
+    <StackLayout row="2" orientation="horizontal">
+      <Label text="{{ formattedStartTime }}"></Label>
+      <Switch></Switch>
+      <Switch></Switch>
+      <ListPicker items="{{ ['Груди', 'Пляшечка'] }}"></ListPicker>
+      <Label text="{{ 0 }}"></Label>
+    </StackLayout>
+  </GridLayout>
+</Page>
