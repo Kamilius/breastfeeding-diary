@@ -1,10 +1,13 @@
 import observableModule from 'data/observable'
 import observableArray from 'data/observable-array'
+import frameModule from 'ui/frame'
 import appModule from 'application'
 
 var pageData = new observableModule.Observable()
 var entries = new observableArray.ObservableArray([])
-var page
+
+var topmost,
+    page
 
 function timeFormatter(value) {
   return `${value.getHours()}:${value.getMinutes()}`
@@ -55,9 +58,12 @@ export function onPageLoaded(args) {
 
   pageData.set('entries', entries)
 
+  topmost = frameModule.topmost()
+
   page.bindingContext = pageData
 }
 
 export function addFeeding() {
-  entries.push(new EntryViewModel())
+  // entries.push(new EntryViewModel())
+  topmost.navigate('feeding')
 }

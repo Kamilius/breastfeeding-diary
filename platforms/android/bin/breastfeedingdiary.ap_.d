@@ -18,6 +18,9 @@
 /home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/main-page.js \
 /home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/LICENSE \
 /home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/app.js \
+/home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/feeding.xml \
+/home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/moment.js \
+/home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/feeding.js \
 /home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/package.json \
 /home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/tns_modules \
 /home/kamilius/proj/breastfeeding-diary/platforms/android/assets/app/main-page.xml \

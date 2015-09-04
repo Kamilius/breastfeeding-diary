@@ -18,13 +18,18 @@ var _dataObservableArray = require('data/observable-array');
 
 var _dataObservableArray2 = _interopRequireDefault(_dataObservableArray);
 
+var _uiFrame = require('ui/frame');
+
+var _uiFrame2 = _interopRequireDefault(_uiFrame);
+
 var _application = require('application');
 
 var _application2 = _interopRequireDefault(_application);
 
 var pageData = new _dataObservable2['default'].Observable();
 var entries = new _dataObservableArray2['default'].ObservableArray([]);
-var page;
+
+var topmost, page;
 
 function timeFormatter(value) {
   return value.getHours() + ':' + value.getMinutes();
@@ -83,9 +88,12 @@ function onPageLoaded(args) {
 
   pageData.set('entries', entries);
 
+  topmost = _uiFrame2['default'].topmost();
+
   page.bindingContext = pageData;
 }
 
 function addFeeding() {
-  entries.push(new EntryViewModel());
+  // entries.push(new EntryViewModel())
+  topmost.navigate('feeding');
 }

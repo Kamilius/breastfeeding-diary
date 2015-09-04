@@ -1,6 +1,7 @@
 .entry-list__item {
-  height: 10;
-  padding: 5;
+  height: 50;
+  padding: 25;
+  font-size: 16;
 }
 
 .entry-list__item__col {
