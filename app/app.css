@@ -1,16 +1,15 @@
-.entry-list__item {
-  height: 50;
-  padding: 25;
-  font-size: 16;
-}
+.entry-list__item {}
 
 .entry-list__item__col {
+  padding-top: 10;
+  padding-bottom: 10;
   margin-left: 5;
+  font-size: 18;
   vertical-align: center;
 }
 
-.entry-list__item__col--start-time {}
-.entry-list__item__col--pee {}
-.entry-list__item__col--poo {}
-.entry-list__item__col--method {}
-.entry-list__item__col--amount {}
+.entry-list__item__col--start-time { width: 50; }
+.entry-list__item__col--pee { width: 65; }
+.entry-list__item__col--poo { width: 65; }
+.entry-list__item__col--method { width: 95; }
+.entry-list__item__col--amount { width: 100; }

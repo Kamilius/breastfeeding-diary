@@ -1,15 +1,11 @@
 <Page loaded="onPageLoaded">
-  <GridLayout>
+  <StackLayout>
     <Label text="{{ elapsedTime }}" cssClass="timer"></Label>
-    <!-- <StackLayout orientation="horizontal">
-      <Label cssClass="entry-list__item__col entry-list__item__col--start-time"
-             text="{{ formattedStartTime }}"></Label>
-      <Switch cssClass="entry-list__item__col entry-list__item__col--start-time"></Switch>
-      <Switch cssClass="entry-list__item__col entry-list__item__col--start-time"></Switch>
-      <ListPicker cssClass="entry-list__item__col entry-list__item__col--start-time"
+    <StackLayout orientation="horizontal">
+      <Switch cssClass="entry--pee"></Switch>
+      <Switch cssClass="entry--poo"></Switch>
+      <ListPicker cssClass="entry--method"
                   items="{{ ['Груди(л)', 'Груди(п)', 'Пляшечка'] }}"></ListPicker>
-      <Label cssClass="entry-list__item__col entry-list__item__col--start-time"
-             text="{{ 0 }}"></Label>
-    </StackLayout> -->
-  </GridLayout>
+    </StackLayout>
+  </StackLayout>
 </Page>

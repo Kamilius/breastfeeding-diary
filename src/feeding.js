@@ -1,6 +1,7 @@
 import observableModule from 'data/observable'
 import observableArray from 'data/observable-array'
 import timer from 'timer'
+import fs from 'file-system'
 import moment from './moment.js'
 
 var page,
