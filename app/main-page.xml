@@ -1,8 +1,15 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" loaded="onPageLoaded">
-  <GridLayout rows="auto, *">
-    <StackLayout>
-      <Button text="Додати" tap="addFeeding"></Button>
-    </StackLayout>
+<Page xmlns="http://www.nativescript.org/tns.xsd"
+      loaded="onPageLoaded"
+      navigatedTo="navigatedTo">
+  <Page.actionBar>
+    <ActionBar title="Історія годувань">
+      <ActionBar.actionItems>
+        <ActionItem text="Додати"
+                    tap="addFeeding" ios.position="right"/>
+      </ActionBar.actionItems>
+    </ActionBar>
+  </Page.actionBar>
+  <ScrollView>
     <ListView items="{{ entries }}" row="1" cssClass="entry-list">
       <ListView.itemTemplate cssClass="entry-list__item">
         <StackLayout orientation="horizontal">
@@ -19,5 +26,5 @@
         </StackLayout>
       </ListView.itemTemplate>
     </ListView>
-  </GridLayout>
+  </ScrollView>
 </Page>

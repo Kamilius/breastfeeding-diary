@@ -1,7 +1,10 @@
 .timer {
-  height: 250;
-  margin-top: 113;
+  padding: 75 0;
+  border: 1 solid black;
   font-size: 25;
   text-align: center;
-  vertical-align: center;
+}
+
+ListPicker {
+  height: 100;
 }

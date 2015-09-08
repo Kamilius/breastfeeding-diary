@@ -2,8 +2,9 @@ import observableModule from 'data/observable'
 import observableArray from 'data/observable-array'
 import frameModule from 'ui/frame'
 import appModule from 'application'
-
 import fs from 'file-system'
+
+import EntryModel from './models/entry-model.js'
 
 var pageData = new observableModule.Observable()
 var entries = new observableArray.ObservableArray([])
@@ -11,15 +12,19 @@ var entries = new observableArray.ObservableArray([])
 var topmost,
     page
 
+export function onNavigatedTo(args) {
+  console.log(`Main-page^${args.object.message}`)
+}
+
 function timeFormatter(value) {
   var hours = value.getHours(),
       minutes = value.getMinutes()
 
-  if (hours.length === 1) {
+  if (hours.toString().length === 1) {
     hours = `0${hours}`
   }
 
-  if (minutes.length === 1) {
+  if (minutes.toString().length === 1) {
     minutes = `0${minutes}`
   }
 
@@ -45,29 +50,15 @@ function feedingAmountFormatter(value, method) {
   return method === 0 || method === 1? `${value}хв` : `${value}мг`
 }
 
-class EntryViewModel {
-  constructor({startTime = new Date(),
-               poo = false,
-               pee = false,
-               feedingMethod = 0,
-               feedingAmount = 0} = {}) {
-    this.startTime = new Date(startTime)
-    this.poo = poo
-    this.pee = pee
-    this.feedingMethod = feedingMethod
-    this.feedingAmount = feedingAmount
-  }
-}
-
 function getEntries() {
   let documents = fs.knownFolders.currentApp(),
       entriesFile = documents.getFile('entries.json')
 
   entriesFile.readText()
     .then(function(content) {
-        entries = JSON.parse(content).map(entry => new EntryViewModel(entry))
+      entries = JSON.parse(content).map(entry => new EntryModel(entry))
 
-        pageData.set('entries', entries)
+      pageData.set('entries', entries)
     }, function(error) {
       console.log(error)
     })
@@ -76,8 +67,6 @@ function getEntries() {
 export function onPageLoaded(args) {
   page = args.object
   topmost = frameModule.topmost()
-
-  debugger;
 
   appModule.resources['timeFormatter'] = timeFormatter
   appModule.resources['boolFormatter'] = boolFormatter

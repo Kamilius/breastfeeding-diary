@@ -3,12 +3,11 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+exports.onNavigatedTo = onNavigatedTo;
 exports.onPageLoaded = onPageLoaded;
 exports.addFeeding = addFeeding;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var _dataObservable = require('data/observable');
 
@@ -30,20 +29,28 @@ var _fileSystem = require('file-system');
 
 var _fileSystem2 = _interopRequireDefault(_fileSystem);
 
+var _modelsEntryModelJs = require('./models/entry-model.js');
+
+var _modelsEntryModelJs2 = _interopRequireDefault(_modelsEntryModelJs);
+
 var pageData = new _dataObservable2['default'].Observable();
 var entries = new _dataObservableArray2['default'].ObservableArray([]);
 
 var topmost, page;
 
+function onNavigatedTo(args) {
+  console.log('Main-page^' + args.object.message);
+}
+
 function timeFormatter(value) {
   var hours = value.getHours(),
       minutes = value.getMinutes();
 
-  if (hours.length === 1) {
+  if (hours.toString().length === 1) {
     hours = '0' + hours;
   }
 
-  if (minutes.length === 1) {
+  if (minutes.toString().length === 1) {
     minutes = '0' + minutes;
   }
 
@@ -69,36 +76,13 @@ function feedingAmountFormatter(value, method) {
   return method === 0 || method === 1 ? value + 'хв' : value + 'мг';
 }
 
-var EntryViewModel = function EntryViewModel() {
-  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-  var _ref$startTime = _ref.startTime;
-  var startTime = _ref$startTime === undefined ? new Date() : _ref$startTime;
-  var _ref$poo = _ref.poo;
-  var poo = _ref$poo === undefined ? false : _ref$poo;
-  var _ref$pee = _ref.pee;
-  var pee = _ref$pee === undefined ? false : _ref$pee;
-  var _ref$feedingMethod = _ref.feedingMethod;
-  var feedingMethod = _ref$feedingMethod === undefined ? 0 : _ref$feedingMethod;
-  var _ref$feedingAmount = _ref.feedingAmount;
-  var feedingAmount = _ref$feedingAmount === undefined ? 0 : _ref$feedingAmount;
-
-  _classCallCheck(this, EntryViewModel);
-
-  this.startTime = new Date(startTime);
-  this.poo = poo;
-  this.pee = pee;
-  this.feedingMethod = feedingMethod;
-  this.feedingAmount = feedingAmount;
-};
-
 function getEntries() {
   var documents = _fileSystem2['default'].knownFolders.currentApp(),
       entriesFile = documents.getFile('entries.json');
 
   entriesFile.readText().then(function (content) {
     entries = JSON.parse(content).map(function (entry) {
-      return new EntryViewModel(entry);
+      return new _modelsEntryModelJs2['default'](entry);
     });
 
     pageData.set('entries', entries);
@@ -110,8 +94,6 @@ function getEntries() {
 function onPageLoaded(args) {
   page = args.object;
   topmost = _uiFrame2['default'].topmost();
-
-  debugger;
 
   _application2['default'].resources['timeFormatter'] = timeFormatter;
   _application2['default'].resources['boolFormatter'] = boolFormatter;

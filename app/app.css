@@ -1,11 +1,10 @@
 .entry-list__item {}
-
+  
 .entry-list__item__col {
   padding-top: 10;
   padding-bottom: 10;
   margin-left: 5;
   font-size: 18;
-  vertical-align: center;
 }
 
 .entry-list__item__col--start-time { width: 50; }

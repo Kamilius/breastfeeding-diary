@@ -1,38 +1,35 @@
 {
-  "nativescript": {
-    "id": "org.nativescript.breastfeedingdiary",
-    "tns-android": {
-      "version": "1.2.1"
-    }
-  },
-  "name": "breastfeeding-diary",
-  "version": "0.0.1",
-  "description": "Application for tracking when child was eating last time, which breast was used and a few different parameters",
-  "main": "index.js",
-  "dependencies": {
-    "gulp-babel": "^5.2.1"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-babel": "^5.2.1",
-    "node-inspector": "^0.12.2"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Kamilius/breastfeeding-diary.git"
-  },
-  "keywords": [
-    "breastfeeding",
-    "newborn",
-    "diary"
-  ],
-  "author": "Oleksandr Hutsulyak",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Kamilius/breastfeeding-diary/issues"
-  },
-  "homepage": "https://github.com/Kamilius/breastfeeding-diary#readme"
+	"nativescript": {
+		"id": "org.nativescript.breastfeedingdiary",
+		"tns-android": {
+			"version": "1.2.1"
+		}
+	},
+	"name": "breastfeeding-diary",
+	"version": "0.0.1",
+	"description": "Application for tracking when child was eating last time, which breast was used and a few different parameters",
+	"main": "index.js",
+	"devDependencies": {
+		"gulp": "^3.9.0",
+		"gulp-babel": "^5.2.1",
+		"node-inspector": "^0.12.2"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Kamilius/breastfeeding-diary.git"
+	},
+	"keywords": [
+		"breastfeeding",
+		"newborn",
+		"diary"
+	],
+	"author": "Oleksandr Hutsulyak",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Kamilius/breastfeeding-diary/issues"
+	},
+	"homepage": "https://github.com/Kamilius/breastfeeding-diary#readme"
 }

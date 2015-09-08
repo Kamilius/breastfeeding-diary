@@ -1,11 +1,39 @@
-<Page loaded="onPageLoaded">
+<Page loaded="onPageLoaded"
+      navigatedFrom="navigatedFrom">
+  <Page.actionBar>
+    <ActionBar title="Годування">
+      <ActionBar.actionItems>
+        <ActionItem text="Зупинити"
+                    tap="stopTimer" ios.position="right"
+                    visibility="{{ timerId === 0 ? 'collapsed' : 'visible' }}"/>
+        <ActionItem text="Продовжити"
+                    tap="startTimer" ios.position="right"
+                    visibility="{{ timerId === 0 ? 'visible' : 'collapsed' }}"/>
+        <ActionItem text="Зберегти"
+                    tap="saveEntryToEntriesFile" ios.position="right"
+                    visibility="{{ timerId === 0 ? 'visible' : 'collapsed' }}"/>
+      </ActionBar.actionItems>
+    </ActionBar>
+  </Page.actionBar>
+
+  <!-- <Button text="Зупинити годування" tap="stopTimer"></Button>
+  <Button text="Продовжити годування" tap="startTimer"></Button>
+  <Button text="Зберегти годування" tap="saveEntryToEntriesFile"></Button> -->
   <StackLayout>
-    <Label text="{{ elapsedTime }}" cssClass="timer"></Label>
-    <StackLayout orientation="horizontal">
-      <Switch cssClass="entry--pee"></Switch>
-      <Switch cssClass="entry--poo"></Switch>
-      <ListPicker cssClass="entry--method"
-                  items="{{ ['Груди(л)', 'Груди(п)', 'Пляшечка'] }}"></ListPicker>
-    </StackLayout>
+    <Label text="{{ feedingMinutes | formatTime(feedingSeconds) }}"
+           cssClass="timer"></Label>
+
+    <Label text="Попісяв"></Label>
+    <Switch checked="{{ pee }}"
+            cssClass="entry--pee"></Switch>
+
+    <Label text="Покакав"></Label>
+    <Switch checked="{{ poo }}"
+            cssClass="entry--poo"></Switch>
+
+    <Label text="Як їв?"></Label>
+    <ListPicker cssClass="entry--method"
+                selectedIndex="{{ feedingMethod }}"
+                items="{{ ['Груди(л)', 'Груди(п)', 'Пляшечка'] }}"></ListPicker>
   </StackLayout>
 </Page>
