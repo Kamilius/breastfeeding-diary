@@ -1,0 +1,25 @@
+@import 'colors';
+
+Page {
+  background-color: $primary-color-text;
+}
+
+ActionBar {
+  background-color: $primary-color-dark;
+  color: $primary-color-text;
+}
+
+.entry-list__item {}
+
+.entry-list__item__col {
+  padding-top: 10;
+  padding-bottom: 10;
+  margin-left: 5;
+  font-size: 18;
+}
+
+.entry-list__item__col--start-time { width: 50; }
+.entry-list__item__col--pee { width: 65; }
+.entry-list__item__col--poo { width: 65; }
+.entry-list__item__col--method { width: 95; }
+.entry-list__item__col--amount { width: 100; }
