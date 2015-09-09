@@ -68,10 +68,10 @@ export function onPageLoaded(args) {
   page = args.object
   topmost = frameModule.topmost()
 
-  appModule.resources['timeFormatter'] = timeFormatter
-  appModule.resources['boolFormatter'] = boolFormatter
-  appModule.resources['feedingMethodFormatter'] = feedingMethodFormatter
-  appModule.resources['feedingAmountFormatter'] = feedingAmountFormatter
+  appModule.resources.timeFormatter = timeFormatter
+  appModule.resources.boolFormatter = boolFormatter
+  appModule.resources.feedingMethodFormatter = feedingMethodFormatter
+  appModule.resources.feedingAmountFormatter = feedingAmountFormatter
 
   getEntries()
 

@@ -1,39 +1,38 @@
 <Page loaded="onPageLoaded"
-      navigatedFrom="navigatedFrom">
+      unloaded="navigatedFrom">
   <Page.actionBar>
-    <ActionBar title="Годування">
+    <ActionBar text=" ">
+      <NavigationButton text="< Назад"
+                        tap="goBack"/>
       <ActionBar.actionItems>
         <ActionItem text="Зупинити"
-                    tap="stopTimer" ios.position="right"
-                    visibility="{{ timerId === 0 ? 'collapsed' : 'visible' }}"/>
+                    tap="stopTimer"
+                    ios.position="right"/>
         <ActionItem text="Продовжити"
-                    tap="startTimer" ios.position="right"
-                    visibility="{{ timerId === 0 ? 'visible' : 'collapsed' }}"/>
+                    tap="startTimer"
+                    ios.position="right"/>
         <ActionItem text="Зберегти"
-                    tap="saveEntryToEntriesFile" ios.position="right"
-                    visibility="{{ timerId === 0 ? 'visible' : 'collapsed' }}"/>
+                    tap="saveEntryToEntriesFile"
+                    ios.position="right"/>
       </ActionBar.actionItems>
     </ActionBar>
   </Page.actionBar>
 
-  <!-- <Button text="Зупинити годування" tap="stopTimer"></Button>
-  <Button text="Продовжити годування" tap="startTimer"></Button>
-  <Button text="Зберегти годування" tap="saveEntryToEntriesFile"></Button> -->
   <StackLayout>
     <Label text="{{ feedingMinutes | formatTime(feedingSeconds) }}"
-           cssClass="timer"></Label>
+           cssClass="timer"/>
 
-    <Label text="Попісяв"></Label>
+    <Label text="Попісяв"/>
     <Switch checked="{{ pee }}"
-            cssClass="entry--pee"></Switch>
+            cssClass="entry--pee"/>
 
-    <Label text="Покакав"></Label>
+    <Label text="Покакав"/>
     <Switch checked="{{ poo }}"
-            cssClass="entry--poo"></Switch>
+            cssClass="entry--poo"/>
 
-    <Label text="Як їв?"></Label>
+    <Label text="Як їв?"/>
     <ListPicker cssClass="entry--method"
                 selectedIndex="{{ feedingMethod }}"
-                items="{{ ['Груди(л)', 'Груди(п)', 'Пляшечка'] }}"></ListPicker>
+                items="{{ ['Груди(л)', 'Груди(п)', 'Пляшечка'] }}"/>
   </StackLayout>
 </Page>

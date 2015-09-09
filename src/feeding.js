@@ -1,6 +1,7 @@
 import observableModule from 'data/observable'
 import observableArray from 'data/observable-array'
 import frameModule from 'ui/frame'
+import actionBarModule from 'ui/action-bar'
 import timer from 'timer'
 import fs from 'file-system'
 import appModule from 'application'
@@ -8,11 +9,10 @@ import moment from './moment.js'
 
 import EntryModel from './models/entry-model.js'
 
-var page,
+var timerId = 0,
+    page,
     pageData,
-    timerId = 0,
     entry
-
 
 function formatTime(minutes, seconds) {
   if (minutes.toString().length === 1) {
@@ -28,13 +28,24 @@ function formatTime(minutes, seconds) {
 
 function saveEntryState() {
   let documents = fs.knownFolders.currentApp(),
-      entryFile = documents.getFile('entry.json')
+      entryFile = documents.getFile('entry.json'),
+      entry = new EntryModel()
 
-  entryFile.writeText(JSON.stringify(pageData.get('entry')))
-    .then(function(content) {
-      console.log(content)
+  stopTimer()
+
+  entry.startTime = pageData.get('startTime')
+  entry.poo = pageData.get('poo')
+  entry.pee = pageData.get('pee')
+  entry.feedingMethod = pageData.get('feedingMethod')
+  entry.feedingMinutes = pageData.get('feedingMinutes')
+  entry.feedingSeconds = pageData.get('feedingSeconds')
+  entry.suspendTime = moment()
+
+  entryFile.writeText(JSON.stringify(entry))
+    .then(function(msg) {
+      console.log('Entry. Successfully written.')
     }, function(error) {
-      console.log(`saveEntryState(). entryFile write error^${error}`)
+      throw new Error(`EntryFile write error^${error}`)
     })
 }
 
@@ -44,9 +55,21 @@ function loadEntryState() {
 
   entryFile.readText()
     .then(function(content) {
-      pageData = new observableModule.Observable(JSON.parse(content))
+      let entry = JSON.parse(content),
+          timediff = moment().diff(moment(entry.suspendTime), 'seconds'),
+          minutes = Math.floor(timediff / 60),
+          seconds = timediff - minutes * 60
+
+      pageData.set('id', entry.id)
+      pageData.set('pee', entry.pee)
+      pageData.set('poo', entry.poo)
+      pageData.set('feedingMethod', entry.feedingMethod)
+      pageData.set('feedingMinutes', entry.feedingMinutes + minutes)
+      pageData.set('feedingSeconds', entry.feedingSeconds + seconds)
+
+      //startTimer()
     }, function(error) {
-      console.log(`loadEntryState(). entryFile read error^${error}`)
+      throw new Error(`EntryFile write error^${error}`)
     })
 }
 
@@ -54,12 +77,11 @@ appModule.on(appModule.suspendEvent, saveEntryState)
 appModule.on(appModule.resumeEvent, loadEntryState)
 
 export function saveEntryToEntriesFile() {
-  debugger
-
   let documents = fs.knownFolders.currentApp(),
       entriesFile = documents.getFile('entries.json')
 
-  timerId && stopTimer()
+  if (timerId)
+    stopTimer()
 
   entriesFile.readText()
     .then(function(content) {
@@ -96,7 +118,7 @@ export function startTimer() {
     let minutes = pageData.get('feedingMinutes'),
         seconds = pageData.get('feedingSeconds')
 
-    if (seconds < 60) {
+    if (seconds < 59) {
       seconds++
     } else {
       minutes++
@@ -113,16 +135,20 @@ export function stopTimer() {
   timerId = 0
 }
 
+export function goBack() {
+  frameModule.topmost().goBack()
+}
+
 export function navigatedFrom() {
+  stopTimer()
   pageData = new observableModule.Observable(new EntryModel())
 }
 
 export function onPageLoaded(args) {
-  debugger
   page = args.object
   pageData = pageData || new observableModule.Observable(new EntryModel())
 
-  appModule.resources['formatTime'] = formatTime
+  appModule.resources.formatTime = formatTime
   pageData.set('timerId', timerId)
 
   startTimer()

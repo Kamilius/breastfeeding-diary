@@ -14,15 +14,15 @@
       <ListView.itemTemplate cssClass="entry-list__item">
         <StackLayout orientation="horizontal">
           <Label cssClass="entry-list__item__col entry-list__item__col--start-time"
-                 text="{{ startTime | timeFormatter() }}"></Label>
+                 text="{{ startTime | timeFormatter() }}"/>
           <Label cssClass="entry-list__item__col entry-list__item__col--pee"
-                 text="{{ pee | boolFormatter('попісяв') }}"></Label>
+                 text="{{ pee | boolFormatter('попісяв') }}"/>
           <Label cssClass="entry-list__item__col entry-list__item__col--poo"
-                 text="{{ poo | boolFormatter('покакав') }}"></Label>
+                 text="{{ poo | boolFormatter('покакав') }}"/>
           <Label cssClass="entry-list__item__col entry-list__item__col--method"
-                 text="{{ feedingMethod | feedingMethodFormatter() }}"></Label>
+                 text="{{ feedingMethod | feedingMethodFormatter() }}"/>
           <Label cssClass="entry-list__item__col entry-list__item__col--amount"
-                 text="{{ feedingAmount | feedingAmountFormatter(feedingMethod) }}"></Label>
+                 text="{{ feedingAmount | feedingAmountFormatter(feedingMethod) }}"/>
         </StackLayout>
       </ListView.itemTemplate>
     </ListView>

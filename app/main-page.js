@@ -95,10 +95,10 @@ function onPageLoaded(args) {
   page = args.object;
   topmost = _uiFrame2['default'].topmost();
 
-  _application2['default'].resources['timeFormatter'] = timeFormatter;
-  _application2['default'].resources['boolFormatter'] = boolFormatter;
-  _application2['default'].resources['feedingMethodFormatter'] = feedingMethodFormatter;
-  _application2['default'].resources['feedingAmountFormatter'] = feedingAmountFormatter;
+  _application2['default'].resources.timeFormatter = timeFormatter;
+  _application2['default'].resources.boolFormatter = boolFormatter;
+  _application2['default'].resources.feedingMethodFormatter = feedingMethodFormatter;
+  _application2['default'].resources.feedingAmountFormatter = feedingAmountFormatter;
 
   getEntries();
 

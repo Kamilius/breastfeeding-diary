@@ -6,6 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.saveEntryToEntriesFile = saveEntryToEntriesFile;
 exports.startTimer = startTimer;
 exports.stopTimer = stopTimer;
+exports.goBack = goBack;
 exports.navigatedFrom = navigatedFrom;
 exports.onPageLoaded = onPageLoaded;
 
@@ -22,6 +23,10 @@ var _dataObservableArray2 = _interopRequireDefault(_dataObservableArray);
 var _uiFrame = require('ui/frame');
 
 var _uiFrame2 = _interopRequireDefault(_uiFrame);
+
+var _uiActionBar = require('ui/action-bar');
+
+var _uiActionBar2 = _interopRequireDefault(_uiActionBar);
 
 var _timer = require('timer');
 
@@ -43,9 +48,9 @@ var _modelsEntryModelJs = require('./models/entry-model.js');
 
 var _modelsEntryModelJs2 = _interopRequireDefault(_modelsEntryModelJs);
 
-var page,
+var timerId = 0,
+    page,
     pageData,
-    timerId = 0,
     entry;
 
 function formatTime(minutes, seconds) {
@@ -62,12 +67,23 @@ function formatTime(minutes, seconds) {
 
 function saveEntryState() {
   var documents = _fileSystem2['default'].knownFolders.currentApp(),
-      entryFile = documents.getFile('entry.json');
+      entryFile = documents.getFile('entry.json'),
+      entry = new _modelsEntryModelJs2['default']();
 
-  entryFile.writeText(JSON.stringify(pageData.get('entry'))).then(function (content) {
-    console.log(content);
+  stopTimer();
+
+  entry.startTime = pageData.get('startTime');
+  entry.poo = pageData.get('poo');
+  entry.pee = pageData.get('pee');
+  entry.feedingMethod = pageData.get('feedingMethod');
+  entry.feedingMinutes = pageData.get('feedingMinutes');
+  entry.feedingSeconds = pageData.get('feedingSeconds');
+  entry.suspendTime = (0, _momentJs2['default'])();
+
+  entryFile.writeText(JSON.stringify(entry)).then(function (msg) {
+    console.log('Entry. Successfully written.');
   }, function (error) {
-    console.log('saveEntryState(). entryFile write error^' + error);
+    throw new Error('EntryFile write error^' + error);
   });
 }
 
@@ -76,9 +92,21 @@ function loadEntryState() {
       entryFile = documents.getFile('entry.json');
 
   entryFile.readText().then(function (content) {
-    pageData = new _dataObservable2['default'].Observable(JSON.parse(content));
+    var entry = JSON.parse(content),
+        timediff = (0, _momentJs2['default'])().diff((0, _momentJs2['default'])(entry.suspendTime), 'seconds'),
+        minutes = Math.floor(timediff / 60),
+        seconds = timediff - minutes * 60;
+
+    pageData.set('id', entry.id);
+    pageData.set('pee', entry.pee);
+    pageData.set('poo', entry.poo);
+    pageData.set('feedingMethod', entry.feedingMethod);
+    pageData.set('feedingMinutes', entry.feedingMinutes + minutes);
+    pageData.set('feedingSeconds', entry.feedingSeconds + seconds);
+
+    //startTimer()
   }, function (error) {
-    console.log('loadEntryState(). entryFile read error^' + error);
+    throw new Error('EntryFile write error^' + error);
   });
 }
 
@@ -86,12 +114,10 @@ _application2['default'].on(_application2['default'].suspendEvent, saveEntryStat
 _application2['default'].on(_application2['default'].resumeEvent, loadEntryState);
 
 function saveEntryToEntriesFile() {
-  debugger;
-
   var documents = _fileSystem2['default'].knownFolders.currentApp(),
       entriesFile = documents.getFile('entries.json');
 
-  timerId && stopTimer();
+  if (timerId) stopTimer();
 
   entriesFile.readText().then(function (content) {
     var entries = JSON.parse(content),
@@ -126,7 +152,7 @@ function startTimer() {
     var minutes = pageData.get('feedingMinutes'),
         seconds = pageData.get('feedingSeconds');
 
-    if (seconds < 60) {
+    if (seconds < 59) {
       seconds++;
     } else {
       minutes++;
@@ -143,16 +169,20 @@ function stopTimer() {
   timerId = 0;
 }
 
+function goBack() {
+  _uiFrame2['default'].topmost().goBack();
+}
+
 function navigatedFrom() {
+  stopTimer();
   pageData = new _dataObservable2['default'].Observable(new _modelsEntryModelJs2['default']());
 }
 
 function onPageLoaded(args) {
-  debugger;
   page = args.object;
   pageData = pageData || new _dataObservable2['default'].Observable(new _modelsEntryModelJs2['default']());
 
-  _application2['default'].resources['formatTime'] = formatTime;
+  _application2['default'].resources.formatTime = formatTime;
   pageData.set('timerId', timerId);
 
   startTimer();
