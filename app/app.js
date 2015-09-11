@@ -6,6 +6,6 @@ var _application = require('application');
 
 var _application2 = _interopRequireDefault(_application);
 
-_application2['default'].mainModule = 'main-page';
+_application2['default'].mainModule = 'main-page/main-page';
 _application2['default'].cssFile = './app.css';
 _application2['default'].start();

@@ -4,3 +4,11 @@ platforms
 # scss
 .gulp-scss-cache
 .sass-cache
+
+# compiled files
+app/feeding
+app/main-page
+app/models
+app/scss
+app/app.css
+app/app.js

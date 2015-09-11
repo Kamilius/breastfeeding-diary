@@ -5,9 +5,9 @@ import actionBarModule from 'ui/action-bar'
 import timer from 'timer'
 import fs from 'file-system'
 import appModule from 'application'
-import moment from './moment.js'
+import moment from '../moment.js'
 
-import EntryModel from './models/entry-model.js'
+import EntryModel from '../models/entry-model.js'
 
 var timerId = 0,
     page,
@@ -109,7 +109,7 @@ export function saveEntryToEntriesFile() {
         .then(function(msg) {
           pageData = new observableModule.Observable(new EntryModel())
           frameModule.topmost().navigate({
-            moduleName: 'main-page',
+            moduleName: 'main-page/main-page',
             context: { message: 'Годування успішно додано' }
           })
         }, function(error) {

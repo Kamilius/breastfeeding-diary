@@ -4,7 +4,7 @@ import frameModule from 'ui/frame'
 import appModule from 'application'
 import fs from 'file-system'
 
-import EntryModel from './models/entry-model.js'
+import EntryModel from '../models/entry-model.js'
 
 var pageData = new observableModule.Observable()
 var entries = new observableArray.ObservableArray([])
@@ -81,5 +81,5 @@ export function onPageLoaded(args) {
 }
 
 export function addFeeding() {
-  topmost.navigate('feeding')
+  topmost.navigate('feeding/feeding')
 }
