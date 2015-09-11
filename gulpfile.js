@@ -4,7 +4,7 @@ var scss = require('gulp-scss')
 
 var paths = {
   scss: './src/scss/*.scss',
-  js: './src/**/*.js',
+  js: './src/**/*.es6',
   app: './app'
 }
 

@@ -73,8 +73,14 @@ function loadEntryState() {
     })
 }
 
+if (appModule.android) {
+  appModule.android.on(appModule.AndroidApplication.activityPausedEvent, saveEntryState)
+  appModule.android.on(appModule.AndroidApplication.activityResumedEvent, loadEntryState)
+}
+
 appModule.on(appModule.suspendEvent, saveEntryState)
 appModule.on(appModule.resumeEvent, loadEntryState)
+
 
 export function saveEntryToEntriesFile() {
   let documents = fs.knownFolders.currentApp(),
@@ -93,7 +99,7 @@ export function saveEntryToEntriesFile() {
       entry.poo = pageData.get('poo')
       entry.pee = pageData.get('pee')
       entry.feedingMethod = pageData.get('feedingMethod')
-      entry.feedingAmount = Math.round(parseFloat(`${entry.feedingMinutes}.${60 / 100 * entry.feedingSeconds}`))
+      entry.feedingAmount = Math.round(parseFloat(`${pageData.get('feedingMinutes')}.${60 / 100 * pageData.get('feedingSeconds')}`))
       entry.feedingMinutes = pageData.get('feedingMinutes')
       entry.feedingSeconds = pageData.get('feedingSeconds')
 
@@ -101,6 +107,7 @@ export function saveEntryToEntriesFile() {
 
       entriesFile.writeText(JSON.stringify(entries))
         .then(function(msg) {
+          pageData = new observableModule.Observable(new EntryModel())
           frameModule.topmost().navigate({
             moduleName: 'main-page',
             context: { message: 'Годування успішно додано' }

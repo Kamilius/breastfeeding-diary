@@ -4,9 +4,10 @@ Page {
   background-color: $primary-color-text;
 }
 
-ActionBar {
+.action-bar {
   background-color: $primary-color-dark;
   color: $primary-color-text;
+  font-size: 12;
 }
 
 .entry-list__item {}

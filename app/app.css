@@ -2,9 +2,10 @@
 Page {
   background-color: #FFFFFF; }
 
-ActionBar {
+.action-bar {
   background-color: #0288D1;
-  color: #FFFFFF; }
+  color: #FFFFFF;
+  font-size: 12; }
 
 .entry-list__item__col {
   padding-top: 10;

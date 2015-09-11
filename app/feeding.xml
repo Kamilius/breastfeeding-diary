@@ -1,7 +1,7 @@
 <Page loaded="onPageLoaded"
       unloaded="navigatedFrom">
   <Page.actionBar>
-    <ActionBar text=" ">
+    <ActionBar title="Годування">
       <NavigationButton text="< Назад"
                         tap="goBack"/>
       <ActionBar.actionItems>
@@ -33,6 +33,6 @@
     <Label text="Як їв?"/>
     <ListPicker cssClass="entry--method"
                 selectedIndex="{{ feedingMethod }}"
-                items="{{ ['Груди(л)', 'Груди(п)', 'Пляшечка'] }}"/>
+                items="{{ ['Груди(л)', 'Груди(п)'] }}"/>
   </StackLayout>
 </Page>

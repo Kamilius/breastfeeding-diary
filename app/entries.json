@@ -1,30 +1,30 @@
 [
   {
     "id": 1,
-    "startTime": "2015-09-04T21:21:49.857Z",
-    "poo": true,
+    "startTime": "2015-09-10T13:15:00.857Z",
+    "poo": false,
     "pee": false,
     "feedingMethod": 0,
-    "feedingAmount": 10,
-    "feedingMinutes": 10,
+    "feedingAmount": 14,
+    "feedingMinutes": 14,
     "feedingSeconds": 0
   }, {
     "id": 2,
-    "startTime": "2015-09-04T20:59:49.857Z",
-    "poo": true,
-    "pee": true,
-    "feedingMethod": 1,
-    "feedingAmount": 5,
-    "feedingMinutes": 5,
+    "startTime": "2015-09-10T13:57:00.857Z",
+    "poo": false,
+    "pee": false,
+    "feedingMethod": 0,
+    "feedingAmount": 14,
+    "feedingMinutes": 14,
     "feedingSeconds": 40
   }, {
     "id": 3,
-    "startTime": "2015-09-04T19:10:49.857Z",
+    "startTime": "2015-09-10T14:58:00.857Z",
     "poo": false,
-    "pee": true,
-    "feedingMethod": 2,
-    "feedingAmount": 60,
+    "pee": false,
+    "feedingMethod": 0,
+    "feedingAmount": 25,
     "feedingMinutes": 25,
-    "feedingSeconds": 59
+    "feedingSeconds": 0
   }
 ]

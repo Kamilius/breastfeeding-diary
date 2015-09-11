@@ -1,7 +1,7 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd"
       loaded="onPageLoaded"
       navigatedTo="navigatedTo">
-  <Page.actionBar>
+  <Page.actionBar className="action-bar">
     <ActionBar title="Історія годувань">
       <ActionBar.actionItems>
         <ActionItem text="Додати"

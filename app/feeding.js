@@ -110,6 +110,11 @@ function loadEntryState() {
   });
 }
 
+if (_application2['default'].android) {
+  _application2['default'].android.on(_application2['default'].AndroidApplication.activityPausedEvent, saveEntryState);
+  _application2['default'].android.on(_application2['default'].AndroidApplication.activityResumedEvent, loadEntryState);
+}
+
 _application2['default'].on(_application2['default'].suspendEvent, saveEntryState);
 _application2['default'].on(_application2['default'].resumeEvent, loadEntryState);
 
@@ -128,13 +133,14 @@ function saveEntryToEntriesFile() {
     entry.poo = pageData.get('poo');
     entry.pee = pageData.get('pee');
     entry.feedingMethod = pageData.get('feedingMethod');
-    entry.feedingAmount = Math.round(parseFloat(entry.feedingMinutes + '.' + 60 / 100 * entry.feedingSeconds));
+    entry.feedingAmount = Math.round(parseFloat(pageData.get('feedingMinutes') + '.' + 60 / 100 * pageData.get('feedingSeconds')));
     entry.feedingMinutes = pageData.get('feedingMinutes');
     entry.feedingSeconds = pageData.get('feedingSeconds');
 
     entries.push(entry);
 
     entriesFile.writeText(JSON.stringify(entries)).then(function (msg) {
+      pageData = new _dataObservable2['default'].Observable(new _modelsEntryModelJs2['default']());
       _uiFrame2['default'].topmost().navigate({
         moduleName: 'main-page',
         context: { message: 'Годування успішно додано' }
